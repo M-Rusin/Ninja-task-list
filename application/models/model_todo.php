@@ -45,9 +45,9 @@ class Model_Todo extends Model
 	public function insert($name, $email, $text)
 	{
 		
-		$name 	= $this->valid->validName($name); 
-		$email 	= $this->valid->validEmail($email); 
-		$text 	= $this->valid->validText($text); 
+		$name 	= $this->valid->validFields($name); 
+		$email 	= $this->valid->validFields($email); 
+		$text 	= $this->valid->validFields($text); 
 		$created_at = date('Y-m-d H:i:s');
 		
 		$query = "INSERT INTO `todos`(`name`, `email`, `text`, `created_at`) VALUES ('$name', '$email', '$text', '$created_at')";
@@ -58,7 +58,7 @@ class Model_Todo extends Model
 
 	public function getById($id)
 	{
-		$id = $this->valid->validId($id);
+		$id = $this->valid->validFields($id);
 
 		$query = "SELECT * FROM `todos` WHERE id=$id";
 		$result = $this->query($query) ?? '';
@@ -111,27 +111,10 @@ class Model_Todo extends Model
 
 class Validete
 {
-	public function validName($var)
-	{
-		// можно тут сколько угодно валидировать
-		return htmlspecialchars(trim($var));
-	}
-	
-	public function validEmail($var)
-	{
-		// можно тут сколько угодно валидировать
-		return htmlspecialchars(trim($var));
-	}
-	public function validText($var)
+	public function validFields($var)
 	{
 		// можно тут сколько угодно валидировать 
-		return htmlspecialchars($var);
-	}
-
-	public function validId($var)
-	{
-		// можно тут сколько угодно валидировать 
-		return htmlspecialchars(trim($var));
+		return htmlspecialchars($var, ENT_QUOTES, 'UTF-8');
 	}
 	
 	public function validInject($sort, $order)
