@@ -1,4 +1,4 @@
-# beejee
+# BeeJee
 TINY PHP MVC
 
 Описание задачи
